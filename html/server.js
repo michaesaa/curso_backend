@@ -6,19 +6,22 @@ const app = express();
 app.set('view engine','ejs');
 
 // asi conecto mi con otra carpeta para poder utilizar sus propiedades
-app.use('/assets',express.static('assets')); // middleware
+app.use('/public',express.static('assets',{
+// que ya no genere respuesta etag para el cache
+  etag: false
+  maxAge: '5h'
+})); // middleware
 
 
 app.get('/',function(req,res){
-  res.sendFile('index.html',{
-  root: __dirname
-  });
-  // res.send(__dirname);
+ res.render('index');
 });
 
 app.listen(3000);
 
 
+
+// podemos establecer un tiempo de los datos guardados en cahce   con  maxAge:''
 
 
 
